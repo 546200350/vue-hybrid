@@ -1,6 +1,6 @@
 # vue-api-webpack
 
-> A Vue.js project
+> 基于vue-cli脚手架，apicloud调用原生api，webpack多页面打包。
 
 ## Build Setup
 
@@ -18,4 +18,9 @@ npm run build
 npm run build --report
 ```
 
-For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+## 开发模式
+####1、执行npm run start命令编译并开启热更新模式。
+####2、在apicloud自定义loader修改config对应的首页地址。（192.168.1.1:8081/home/home.html）
+####3、修改并保存代码，自动刷新页面。
+## 发布模式
+####1、执行npm run build命令编译发布代码。此时会在当前项目下创建dist文件夹，然后就可以自己玩了。
