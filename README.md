@@ -35,7 +35,7 @@
 └─static //不需要进行编译打包的静态文件
 ```
 多页配置主要是在build/webpack.base.conf.js文件里,通过HtmlWebpackPlugin插件,将JS打包到html中.<br/>
-请注意:<span style="color:red">页面文件必须放到src二级目录下(比如:首页->src/home/index.html)</span>	<br/>
+> 请注意:页面文件必须放到src二级目录下(比如:首页->src/home/index.html)</span>
 
 
 ### Build Setup
