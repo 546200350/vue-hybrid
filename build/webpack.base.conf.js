@@ -3,17 +3,18 @@ const path = require('path')
 const utils = require('./utils')
 const config = require('../config')
 const vueLoaderConfig = require('./vue-loader.conf')
-const webpack = require( "webpack" );
-const glob = require( "glob" );
+const webpack = require("webpack");
+const glob = require("glob");
 
-function resolve (dir) {
+function resolve(dir) {
   return path.join(__dirname, '..', dir)
 }
+
 const entries = {};
 const configOptions = {
-  // context: path.resolve(__dirname, '../'),
+  context: path.resolve(__dirname, '../'),
   // entry: {
-  //   app: './src/main.js'
+  //   app: './src/searchlist.js'
   // },
   entry: entries,
   output: {
@@ -44,11 +45,15 @@ const configOptions = {
       },
       {
         test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
-        loader: 'url-loader',
-        options: {
-          limit: 10000,
-          name: utils.assetsPath('img/[name].[hash:7].[ext]')
-        }
+        loader: [
+          {
+            loader: 'url-loader',
+            options: {
+              limit: 100,
+              name: utils.assetsPath('img/[name].[hash:7].[ext]')
+            }
+          }
+        ]
       },
       {
         test: /\.(mp4|webm|ogg|mp3|wav|flac|aac)(\?.*)?$/,
@@ -60,11 +65,18 @@ const configOptions = {
       },
       {
         test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
-        loader: 'url-loader',
-        options: {
-          limit: 10000,
-          name: utils.assetsPath('fonts/[name].[hash:7].[ext]')
-        }
+        loaders: [
+          {
+            loader: path.resolve(__dirname, 'cssPathResolver')
+          },
+          {
+            loader: 'url-loader',
+            options: {
+              limit: 10000,
+              name: utils.assetsPath('fonts/[name].[hash:7].[ext]')
+            }
+          }
+        ]
       }
     ]
   },
@@ -81,13 +93,25 @@ const configOptions = {
     child_process: 'empty'
   }
 }
+// 过滤打包文件，减少开发编译时间(仅打包配置后的入口文件)
+// 正则过滤匹配
+var regx = /(index\/index|home|class|bmap|me)/g;
+
 //获取多入口文件
 function getEntries() {
-  glob.sync( './src/**/*.js' ).forEach( function ( name ) {
-    var path = name.slice( name.lastIndexOf( 'src/' ) + 4, name.length - 3 );
-    console.log( path );
-    entries[path] = name;
-  } );
+  glob.sync('./src/**/*.js').forEach(function (name) {
+    var path = name.slice(name.lastIndexOf('src/') + 4, name.length - 3);
+    console.log(path);
+    if (process.env.NODE_ENV !== 'production') {
+      if (regx.test(name)) {
+        regx.lastIndex = 0;
+        entries[path + ''] = name + '';
+      }
+    } else {
+      entries[path] = name;
+    }
+  });
+  console.log(entries);
 }
 
 getEntries();

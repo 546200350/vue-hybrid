@@ -30,7 +30,7 @@ const webpackConfig = merge(baseWebpackConfig, {
     path: path.resolve(__dirname, '../dist'),
     filename: '[name].[chunkhash].js',
     // chunkFilename: utils.assetsPath('js/[id].[chunkhash].js')
-    publicPath: '../'
+    publicPath: "../"
   },
   plugins: [
     new CleanWebpackPlugin( ['dist/*'], {
@@ -72,7 +72,7 @@ const webpackConfig = merge(baseWebpackConfig, {
     // see https://github.com/ampedandwired/html-webpack-plugin
     // 默认的模板注释
     // new HtmlWebpackPlugin({
-    //   filename: config.build.index,
+    //   filename: config.build.class,
     //   template: 'index.html',
     //   inject: true,
     //   minify: {
@@ -119,7 +119,7 @@ const webpackConfig = merge(baseWebpackConfig, {
     //   minChunks: 3
     // }),
 
-    // copy custom static assets
+    // copy custom static page
     new CopyWebpackPlugin([
       {
         from: path.resolve(__dirname, '../static'),
@@ -153,11 +153,11 @@ if (config.build.bundleAnalyzerReport) {
 }
 // 获取多模板文件
 function getHtmls() {
-  glob.sync( './src/**/*.html' ).forEach( function ( name ) {
-    var n = name.slice( name.lastIndexOf( 'src/' ) + 4, name.length - 5 );
+  glob.sync( './src/**/*.js' ).forEach( function ( name ) {
+    var n = name.slice( name.lastIndexOf( 'src/' ) + 4, name.length - 3 );
     webpackConfig.plugins.push( new HtmlWebpackPlugin( {
       filename: n + ".html",
-      template: "./src/" + n + ".html",//new 一个这个插件的实例，并传入相关的参数
+      template: "./src/index.html",//new 一个这个插件的实例，并传入相关的参数
       chunks: [n,'vendor']
     } ) );
   } );

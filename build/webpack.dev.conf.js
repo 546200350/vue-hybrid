@@ -22,7 +22,7 @@ const devWebpackConfig = merge(baseWebpackConfig, {
   // cheap-module-eval-source-map is faster for development
   devtool: config.dev.devtool,
 
-  // these devServer options should be customized in /config/index.js
+  // these devServer options should be customized in /config/searchlist.js
   devServer: {
     clientLogLevel: 'warning',
     historyApiFallback: {
@@ -64,7 +64,7 @@ const devWebpackConfig = merge(baseWebpackConfig, {
     //   template: 'index.html',
     //   inject: true
     // }),
-    // copy custom static assets
+    // copy custom static page
     new CopyWebpackPlugin([
       {
         from: path.resolve(__dirname, '../static'),
@@ -75,13 +75,24 @@ const devWebpackConfig = merge(baseWebpackConfig, {
   ]
 })
 // 获取多模板文件
+// function getHtmls() {
+//   glob.sync( './src/**/*.html' ).forEach( function ( name ) {
+//     var n = name.slice( name.lastIndexOf( 'src/' ) + 4, name.length - 5 );
+//     devWebpackConfig.plugins.push( new HtmlWebpackPlugin( {
+//       filename: n + ".html",
+//       template: "./src/" + n + ".html",//new 一个这个插件的实例，并传入相关的参数
+//       chunks: [n,'commons']
+//     } ) );
+//   } );
+// }
+// 获取多模板文件
 function getHtmls() {
-  glob.sync( './src/**/*.html' ).forEach( function ( name ) {
-    var n = name.slice( name.lastIndexOf( 'src/' ) + 4, name.length - 5 );
+  glob.sync( './src/**/*.js' ).forEach( function ( name ) {
+    var n = name.slice( name.lastIndexOf( 'src/' ) + 4, name.length - 3 );
     devWebpackConfig.plugins.push( new HtmlWebpackPlugin( {
       filename: n + ".html",
-      template: "./src/" + n + ".html",//new 一个这个插件的实例，并传入相关的参数
-      chunks: [n,'commons']
+      template: "./src/index.html",//new 一个这个插件的实例，并传入相关的参数
+      chunks: [n,'vendor']
     } ) );
   } );
 }
