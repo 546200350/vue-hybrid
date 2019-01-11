@@ -84,7 +84,6 @@
     Row,
     Col
   } from 'vant';
-  import Common from '../../../lib/common.js';
 
   export default {
     components: {
@@ -110,10 +109,7 @@
     },
     methods: {
       goFeedBack() {
-        Common.openWin({
-          name: "feedback",
-          url: "./feedback.html"
-        })
+        this.$openWin('feedback.html','./feedback.html');
       }
     }
   }
