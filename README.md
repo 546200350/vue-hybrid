@@ -57,7 +57,7 @@ npm run build --report
 ### 开发模式
 #### 1、执行npm run start命令编译并开启热更新模式。
 #### 2、在apicloud自定义loader修改config对应的首页地址。（192.168.1.1:8888/me/index.html）
-#### 3、将lib/common.js下的isApiEnvironment修改成false,重新运行.浏览器打开地址(192.168.1.1:8888/me/index.html)
+#### 3、<del>将lib/common.js下的isApiEnvironment修改成false,重新运行.</del>浏览器打开地址(192.168.1.1:8888/me/index.html)
 #### 4、修改并保存代码，自动刷新页面。
 ### 发布模式
 #### 1、执行npm run build命令编译发布代码。此时会在当前项目下创建dist文件夹，然后就可以自己玩了。
