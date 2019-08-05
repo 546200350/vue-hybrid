@@ -1,6 +1,6 @@
-# vue-api-webpack
+# vue-hybrid
 
-> 基于vue-cli脚手架，apicloud调用原生api，webpack多页面打包。
+> 基于vue-cli脚手架，apicloud调用原生api(其他框架均适用)，webpack多页面打包。
 
 ### 说明
 ##### -单页应用
